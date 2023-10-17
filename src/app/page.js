@@ -1,95 +1,55 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import { useContext, useEffect } from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import { useRouter } from "next/navigation";
+
+import { GridCentered } from "../components/GridCentered";
+import { UserContext } from "@/context/userContext";
 
 export default function Home() {
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+
+  console.log("user", user);
+  useEffect(() => {
+    if (user?.logged) {
+      router.push("/feed");
+    } else {
+      router.push("/signup");
+    }
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <Grid container spacing={2}>
+      <GridCentered>
+        <Box
+          component="img"
+          sx={{
+            height: 128,
+            width: 128,
+            borderRadius: "128px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          alt="Cryptonium Logo."
+          src="https://picsum.photos/128"
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+      </GridCentered>
+      <GridCentered>
+        <Typography
+          variant="h1"
+          align="center"
+          sx={{ fontSize: 48, fontWeight: "bold", color: "#9C27B0" }}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          Crytounium
+        </Typography>
+      </GridCentered>
+      <GridCentered>
+        <Typography variant="p" align="center" sx={{ color: "#9C27B0" }}>
+          bienvenido / welcome / いらっしゃいませ
+        </Typography>
+      </GridCentered>
+    </Grid>
+  );
 }
